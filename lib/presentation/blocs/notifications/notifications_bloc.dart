@@ -6,9 +6,22 @@ part 'notifications_event.dart';
 part 'notifications_state.dart';
 
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   NotificationsBloc() : super(const NotificationsState()) {
-    on<NotificationsEvent>((event, emit) {
-      
-    });
+    //on<NotificationsEvent>((event, emit) {});
+  }
+
+  void requestPermission() async {
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false, // coche
+      criticalAlert: true, // notificaciones urgentes
+      provisional: false,
+      sound: true
+    );
   }
 }
